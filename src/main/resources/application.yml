@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: usuarios
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            scope: email, profile
+            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
+  debug: true
+kira:
+  api-url: "https://api.kira.edu/usuarios"
