@@ -13,5 +13,15 @@
     "name": "spring.debug",
     "type": "java.lang.String",
     "description": "A description for 'spring.debug'"
+  },
+  {
+    "name": "spring.debug",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.debug'"
+  },
+  {
+    "name": "kira.api-url",
+    "type": "java.lang.String",
+    "description": "A description for 'kira.api-url'"
   }
 ]}
