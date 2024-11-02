@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "kira.api-url",
+    "type": "java.lang.String",
+    "description": "A description for 'kira.api-url'"
+  },
+  {
+    "name": "spring.security.oauth2.client-name",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.security.oauth2.client-name'"
+  },
+  {
+    "name": "spring.debug",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.debug'"
+  }
+]}
