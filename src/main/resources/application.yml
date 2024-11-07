@@ -1,15 +1,10 @@
 spring:
   application:
     name: usuarios
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            clientId: ${GOOGLE_CLIENT_ID}
-            client-secret: ${GOOGLE_CLIENT_SECRET}
-            scope: email, profile
-            redirectUri: "{baseUrl}/login/oauth2/code/{registrationId}"
-  debug: true
+server:
+  port: 8096
+google:
+  firebase:
+    credentials: C:\\Users\\User\\Documents\\maestriacomputacion\\Despliegue\\prod-maestria-computacion-firebase-adminsdk-6hpr7-4199a1844b.json
 kira:
   api-url: "https://api.kira.edu/usuarios"
