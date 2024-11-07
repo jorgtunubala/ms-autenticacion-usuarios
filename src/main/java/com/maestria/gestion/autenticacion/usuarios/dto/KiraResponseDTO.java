@@ -1,5 +1,7 @@
 package com.maestria.gestion.autenticacion.usuarios.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -11,5 +13,5 @@ public class KiraResponseDTO {
     private String codigoAcademico;
     private String tipoIdentificacion;
     private String numeroIdentificacion;
-    private String rol;
+    private List<String> rol;
 }

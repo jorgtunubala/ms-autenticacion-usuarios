@@ -1,5 +1,8 @@
 package com.maestria.gestion.autenticacion.usuarios.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,21 +38,55 @@ public class AuthController {
 
         // Obtener la información del usuario de la API KIRA
         String email = firebaseToken.getEmail();
-        KiraResponseDTO kiraUserInfo = new KiraResponseDTO(); //kiraService.getUserInfo(email);
-        kiraUserInfo.setApellidos("prueba");
-        kiraUserInfo.setNombres("prueba");
-        kiraUserInfo.setRol("prueba");
-        kiraUserInfo.setCorreo(email);
-        kiraUserInfo.setNumeroIdentificacion("10919202029");
-        kiraUserInfo.setTipoIdentificacion("CC");
-        kiraUserInfo.setTelefono("312837382");
-        kiraUserInfo.setCodigoAcademico("1046170213456");
 
+        KiraResponseDTO kiraUserInfo = null;
+        if (email.contains("maestriacomputacion")) {
+            List<String> rol = Arrays.asList("ROLE_COORDINADOR");
+            kiraUserInfo = obtenerInfoProvisional(email, "Ordoñez Erazo", "Hugo Armando", "8209800", 
+                "62789191", "CC", "10675432", rol);
+        } else if (email.contains("lmorozco")) {
+            List<String> rol = Arrays.asList("ROLE_DOCENTE");
+            kiraUserInfo = obtenerInfoProvisional(email, "Orozco Garcia", "Laura Maria", "8209800", 
+                "62789191", "CC", "48675324", rol);
+        } else if (email.contains("cgonzals")) {
+            List<String> rol = Arrays.asList("ROLE_DOCENTE");
+            kiraUserInfo = obtenerInfoProvisional(email, "Gonzáles S.", "Carolina", "8209800", 
+                "62789191", "CC", "48675324", rol);
+        } else if (email.contains("tmcristian")) {
+            List<String> rol = Arrays.asList("ROLE_ESTUDIANTE");
+            kiraUserInfo = obtenerInfoProvisional(email, "Tobar Mosquera", "Christian David", "8209800", 
+                "1046170267546", "CC", "1061789564", rol);
+        } else if (email.contains("jorgetunubala")) {
+            List<String> rol = Arrays.asList("ROLE_ESTUDIANTE");
+            kiraUserInfo = obtenerInfoProvisional(email, "Tunubalá Ramírez", "Jorge Alfredo", "3105913503", 
+                "104613010405", "CC", "1061786321", rol);
+        } else {
+            List<String> rol = Arrays.asList("ROLE_ESTUDIANTE");
+            kiraUserInfo = obtenerInfoProvisional(email, "Prueba", "Prueba", "8209800", 
+                "62789191", "CC", "1061785435", rol);
+        }
 
-        // Generar el JWT para el usuario autenticado
-        String jwtToken = jwtTokenService.generateToken(firebaseToken.getUid(), kiraUserInfo);
+        // Generar el JWT para el usuario autenticado 
+        String []emailDiv = email.split("@");
+        String jwtToken = jwtTokenService.generateToken(firebaseToken.getUid(), 
+                kiraUserInfo, googleTokenRequest.getToken(), emailDiv[0]);
 
         // Responder al front-end con el JWT
         return ResponseEntity.ok(new JwtResponse(jwtToken));
+    }
+
+    private KiraResponseDTO obtenerInfoProvisional(String email, String apellidos, String nombres
+            , String telefono, String codigoAcademico, String tipoIdentificacion, String numeroIdentificacion
+            , List<String> rol){
+        KiraResponseDTO kiraUserInfo = new KiraResponseDTO(); //kiraService.getUserInfo(email);
+        kiraUserInfo.setApellidos(apellidos);
+        kiraUserInfo.setNombres(nombres);
+        kiraUserInfo.setCorreo(email);
+        kiraUserInfo.setTelefono(telefono);
+        kiraUserInfo.setCodigoAcademico(codigoAcademico);
+        kiraUserInfo.setTipoIdentificacion(tipoIdentificacion);
+        kiraUserInfo.setNumeroIdentificacion(numeroIdentificacion);
+        kiraUserInfo.setRol(rol);
+        return kiraUserInfo;
     }
 }

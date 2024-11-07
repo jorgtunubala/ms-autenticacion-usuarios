@@ -11,10 +11,11 @@ import java.util.Date;
 public class JwtTokenServiceImpl implements JwtTokenService {
 
     private static final String SECRET_KEY = "claveSuperSecretaMaestriaComputacionKeySecretMC";
+    // username, 
 
     @SuppressWarnings("deprecation")
     @Override
-    public String generateToken(String userId, KiraResponseDTO kiraUserInfo) {
+    public String generateToken(String userId, KiraResponseDTO kiraUserInfo, String tokenOriginal, String username) {
         return Jwts.builder()
             .setSubject(userId)
             .claim("nombres", kiraUserInfo.getNombres())  // Agregar nombres
@@ -25,6 +26,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             .claim("tipoIdentificacion", kiraUserInfo.getTipoIdentificacion())  // Agregar tipo de identificación
             .claim("numeroIdentificacion", kiraUserInfo.getNumeroIdentificacion())  // Agregar número de identificación
             .claim("rol", kiraUserInfo.getRol())  // Agregar rol
+            .claim(tokenOriginal, tokenOriginal)
+            .claim(username, username)
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // Token válido por 1 hora
             .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
