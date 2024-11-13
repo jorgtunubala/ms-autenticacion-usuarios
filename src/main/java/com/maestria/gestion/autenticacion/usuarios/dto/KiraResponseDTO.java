@@ -6,12 +6,16 @@ import lombok.Data;
 
 @Data
 public class KiraResponseDTO {
-    private String nombres;
-    private String apellidos;
-    private String correo;
-    private String telefono;
-    private String codigoAcademico;
+    private Long oidTercero;
+    private String usuario;
+    private Integer oidTipoIdentificacion;
     private String tipoIdentificacion;
-    private String numeroIdentificacion;
-    private List<String> rol;
+    private String identificacion;
+    private String primerApellido;
+    private String segundoApellido;
+    private String primerNombre;
+    private String segundoNombre;
+    private String correo;
+    private String celular;
+    private List<DataAdicionalKira> programas;
 }

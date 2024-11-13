@@ -1,5 +1,6 @@
 package com.maestria.gestion.autenticacion.usuarios.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,13 +12,15 @@ import com.maestria.gestion.autenticacion.usuarios.service.KiraService;
 @Service
 public class KiraServiceImpl implements KiraService {
 
-    private static final String KIRA_API_URL = "https://api.kira.com/userinfo"; // URL de la API KIRA
+    @Value("${kira.api.url}")
+    private String kiraApiUrl;
 
     @Override
-    public KiraResponseDTO getUserInfo(String email) {
+    public KiraResponseDTO getUserInfo(String username) {
         // Llamar a la API KIRA para obtener la información del usuario
         RestTemplate restTemplate = new RestTemplate();
-        String url = KIRA_API_URL + "?email=" + email;
+        String urlDataTercero = "/labor/dataTercero/";
+        String url = kiraApiUrl + urlDataTercero + username;
         ResponseEntity<KiraResponseDTO> response = restTemplate.exchange(url, HttpMethod.GET, null, KiraResponseDTO.class);
         return response.getBody();
     }

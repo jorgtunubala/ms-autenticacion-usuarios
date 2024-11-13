@@ -4,5 +4,5 @@ import com.maestria.gestion.autenticacion.usuarios.dto.KiraResponseDTO;
 
 public interface KiraService {
     
-    KiraResponseDTO getUserInfo(String email);
+    KiraResponseDTO getUserInfo(String username);
 }
