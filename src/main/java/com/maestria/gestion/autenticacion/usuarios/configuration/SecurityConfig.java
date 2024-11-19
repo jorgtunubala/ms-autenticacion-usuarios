@@ -16,15 +16,15 @@ import java.util.List;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Deshabilita CSRF para pruebas
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configurar CORS
-                .authorizeRequests(requests -> requests
-                        .requestMatchers("/api/auth/google").permitAll() // Permitir el acceso sin autenticación a este endpoint
-                        .anyRequest().authenticated()); // Requiere autenticación para cualquier otro endpoint
+            .csrf(csrf -> csrf.disable()) // Deshabilita CSRF para pruebas
+            .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Configurar CORS
+            .authorizeRequests(auth -> auth
+                .antMatchers("/api/auth/google").permitAll() // Permitir acceso sin autenticación a este endpoint
+                .anyRequest().authenticated()); // Requiere autenticación para cualquier otro endpoint
+        
         return http.build();
     }
 

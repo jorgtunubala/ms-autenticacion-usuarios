@@ -23,5 +23,25 @@
     "name": "kira.api-url",
     "type": "java.lang.String",
     "description": "A description for 'kira.api-url'"
+  },
+  {
+    "name": "google.firebase.credentials",
+    "type": "java.lang.String",
+    "description": "A description for 'google.firebase.credentials'"
+  },
+  {
+    "name": "kira.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'kira.api.url'"
+  },
+  {
+    "name": "app.jwt-secret",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt-secret'"
+  },
+  {
+    "name": "app.jwtExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwtExpirationMs'"
   }
 ]}

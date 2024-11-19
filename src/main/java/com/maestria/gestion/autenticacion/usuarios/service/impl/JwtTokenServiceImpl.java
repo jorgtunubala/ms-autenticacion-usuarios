@@ -31,7 +31,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             .claim(tokenOriginal, tokenOriginal)
             .claim(username, username)
             .setIssuedAt(new Date())
-            .setExpiration(new Date(System.currentTimeMillis() + 3600000)) // Token válido por 1 hora
+            .setExpiration(new Date(System.currentTimeMillis() + 86400000))
             .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
             .compact();
     }

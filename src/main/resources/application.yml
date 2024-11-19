@@ -2,14 +2,14 @@ spring:
   application:
     name: usuarios
 server:
-  port: ${SERVER_PORT}
+  port: 8096
 google:
   firebase:
-    credentials: ${GOOGLE_FIREBASE_CREDENTIALS}
+    credentials: C:\\Users\\User\\Documents\\maestriacomputacion\\Despliegue\\prod-maestria-computacion-firebase-adminsdk-6hpr7-4199a1844b.json
 kira:
   api:
-    url: ${KIRA_API_URL}
+    url: http://10.200.1.181:8081/api/v1
 
 app:
-  jwtSecret: ${SPRING_JWT_KEY}
-  jwtExpirationMs: ${SPRING_JWT_EXPIRATION}
+  jwtSecret: claveSuperSecretaMaestriaComputacionKeySecretMCouieeaASdwwwieryyCBD14251ssass11234DDAccsrtrt22
+  jwtExpirationMs: 86400000

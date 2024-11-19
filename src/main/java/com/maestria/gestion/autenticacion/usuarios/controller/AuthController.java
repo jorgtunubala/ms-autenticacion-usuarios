@@ -1,20 +1,18 @@
 package com.maestria.gestion.autenticacion.usuarios.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.firebase.auth.FirebaseToken;
+import com.maestria.gestion.autenticacion.usuarios.dto.DataAdicionalKira;
 import com.maestria.gestion.autenticacion.usuarios.dto.GoogleTokenRequest;
 import com.maestria.gestion.autenticacion.usuarios.dto.JwtResponse;
 import com.maestria.gestion.autenticacion.usuarios.dto.KiraResponseDTO;
@@ -39,9 +37,6 @@ public class AuthController {
     @Autowired
 	JwtUtil jwtUtil;
 
-    @Autowired
-	AuthenticationManager authenticationManager;
-
     @PostMapping("/google")
     public ResponseEntity<?> authenticateWithGoogle(@RequestBody GoogleTokenRequest googleTokenRequest) throws Exception {
         // Verificar el token de Google
@@ -50,7 +45,13 @@ public class AuthController {
         // Obtener la información del usuario de la API KIRA
         String email = firebaseToken.getEmail();
 
-        KiraResponseDTO kiraUserInfo = kiraService.getUserInfo(email);
+        //KiraResponseDTO kiraUserInfo = kiraService.getUserInfo(email);
+
+        List<String> roles = Arrays.asList("ROLE_ESTUDIANTE");
+        KiraResponseDTO kiraUserInfo = obtenerInfoProvisional(123L, "usuario123", 1, "CC", 
+                                                          "123456789", "Perez", "Gomez", 
+                                                          "Juan", "Carlos", email, 
+                                                          "3001234567");
 
         String []emailDiv = email.split("@");
         
@@ -65,18 +66,21 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwtToken));
     }
 
-    /*private KiraResponseDTO obtenerInfoProvisional(String email, String apellidos, String nombres
-            , String telefono, String codigoAcademico, String tipoIdentificacion, String numeroIdentificacion
-            , List<String> rol){
-        KiraResponseDTO kiraUserInfo = new KiraResponseDTO(); //kiraService.getUserInfo(email);
-        kiraUserInfo.setApellidos(apellidos);
-        kiraUserInfo.setNombres(nombres);
-        kiraUserInfo.setCorreo(email);
-        kiraUserInfo.setTelefono(telefono);
-        kiraUserInfo.setCodigoAcademico(codigoAcademico);
-        kiraUserInfo.setTipoIdentificacion(tipoIdentificacion);
-        kiraUserInfo.setNumeroIdentificacion(numeroIdentificacion);
-        kiraUserInfo.setRol(rol);
+    private KiraResponseDTO obtenerInfoProvisional(Long oidTercero, String usuario, Integer oidTipoIdentificacion, 
+                String tipoIdentificacion, String identificacion, 
+                String primerApellido, String segundoApellido, 
+                String primerNombre, String segundoNombre, 
+                String correo, String celular) {
+        
+        List<DataAdicionalKira> lista = new ArrayList<>();
+
+        // Agregar instancias a la lista
+        lista.add(new DataAdicionalKira("Estudiante", "38", 
+                    "12345678", "Ingeniería de Sistemas", "ACTIVO"));
+        
+        KiraResponseDTO kiraUserInfo = new KiraResponseDTO(oidTercero, usuario, oidTipoIdentificacion, tipoIdentificacion,
+            identificacion, primerApellido, segundoApellido, primerNombre,
+            segundoNombre, correo, celular, lista);
         return kiraUserInfo;
-    }*/
+    }
 }

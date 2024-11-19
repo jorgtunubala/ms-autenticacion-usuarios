@@ -9,7 +9,10 @@ import org.springframework.web.client.RestTemplate;
 import com.maestria.gestion.autenticacion.usuarios.dto.KiraResponseDTO;
 import com.maestria.gestion.autenticacion.usuarios.service.KiraService;
 
+import lombok.Data;
+
 @Service
+@Data
 public class KiraServiceImpl implements KiraService {
 
     @Value("${kira.api.url}")
