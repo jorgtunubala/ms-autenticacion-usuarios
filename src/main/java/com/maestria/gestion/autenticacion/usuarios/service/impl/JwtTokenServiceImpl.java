@@ -24,7 +24,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             .claim("apellidos", KiraUtil.obtenerApellidos(kiraUserInfo)) 
             .claim("correo", kiraUserInfo.getCorreo())  
             .claim("telefono", kiraUserInfo.getCelular()) 
-            .claim("codigoAcademico", kiraUserInfo.getTipoIdentificacion()) 
+            .claim("codigoAcademico", KiraUtil.obtenerCodigoPrograma(kiraUserInfo)) 
             .claim("tipoIdentificacion", kiraUserInfo.getTipoIdentificacion())  
             .claim("numeroIdentificacion", kiraUserInfo.getIdentificacion())  
             .claim("rol", KiraUtil.obtenerRolPrograma(kiraUserInfo))
