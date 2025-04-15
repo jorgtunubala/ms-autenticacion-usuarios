@@ -1,7 +1,8 @@
 package com.maestria.gestion.autenticacion.usuarios.service.impl;
 
-import java.io.FileInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -20,15 +21,20 @@ import com.maestria.gestion.autenticacion.usuarios.service.GoogleAuthService;
 @Service
 public class GoogleAuthServiceImpl implements GoogleAuthService {
 
-    // Configura tu Firebase credentials
+    // Configurar Firebase credentials
     @Value("${google.firebase.credentials}")
     private String firebaseCredentials;
 
     @Override
     public FirebaseToken verifyGoogleIdToken(String idToken) throws Exception {
         try {
-            System.out.println("Ruta del archivo de credenciales: " + firebaseCredentials);
-            GoogleCredentials googleCredentials = GoogleCredentials.fromStream(new FileInputStream(firebaseCredentials));
+            System.out.println("Construir credenciales dinamicamente... ");
+            // Convertir la cadena JSON a InputStream
+            ByteArrayInputStream credentialsStream = new ByteArrayInputStream(firebaseCredentials.getBytes(StandardCharsets.UTF_8));
+
+            // Crear credenciales desde el flujo
+            GoogleCredentials googleCredentials = GoogleCredentials.fromStream(credentialsStream);
+
             System.out.println("Credenciales cargadas correctamente.");
 
             // Configurar el transporte para Firebase (NetHttpTransport usa HTTP/1.1)

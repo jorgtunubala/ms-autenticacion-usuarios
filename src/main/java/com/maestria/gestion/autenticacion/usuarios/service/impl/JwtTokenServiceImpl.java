@@ -1,5 +1,6 @@
 package com.maestria.gestion.autenticacion.usuarios.service.impl;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.maestria.gestion.autenticacion.usuarios.common.util.KiraUtil;
@@ -12,8 +13,8 @@ import java.util.Date;
 @Service
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-    private static final String SECRET_KEY = "claveSuperSecretaMaestriaComputacionKeySecretMC";
-    // username, 
+    @Value("${app.keySecret}")
+	private String keySecret;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -32,7 +33,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
             .claim(username, username)
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + 86400000))
-            .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+            .signWith(SignatureAlgorithm.HS256, keySecret)
             .compact();
     }
 }

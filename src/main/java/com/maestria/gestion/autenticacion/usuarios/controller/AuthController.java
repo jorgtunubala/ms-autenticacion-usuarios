@@ -48,9 +48,9 @@ public class AuthController {
         //KiraResponseDTO kiraUserInfo = kiraService.getUserInfo(email);
 
         List<String> roles = Arrays.asList("ROLE_ESTUDIANTE");
-        KiraResponseDTO kiraUserInfo = obtenerInfoProvisional(123L, "usuario123", 1, "CC", 
-                                                          "123456789", "Perez", "Gomez", 
-                                                          "Juan", "Carlos", email, 
+        KiraResponseDTO kiraUserInfo = obtenerInfoProvisional(123L, "jorgetunubala", 1, "CC", 
+                                                          "1111111111", "Perez", "Perez", 
+                                                          "Pepito", "Pepito", email, 
                                                           "3001234567");
 
         String []emailDiv = email.split("@");
@@ -76,7 +76,7 @@ public class AuthController {
 
         // Agregar instancias a la lista
         lista.add(new DataAdicionalKira("Estudiante", "38", 
-                    "12345678", "Ingeniería de Sistemas", "ACTIVO"));
+                    "104613010405", "Ingeniería de Sistemas", "ACTIVO"));
         
         KiraResponseDTO kiraUserInfo = new KiraResponseDTO(oidTercero, usuario, oidTipoIdentificacion, tipoIdentificacion,
             identificacion, primerApellido, segundoApellido, primerNombre,
